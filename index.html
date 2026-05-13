@@ -536,7 +536,7 @@ tr:hover td{background:var(--card2)}
 // =====================================================================
 // CONFIG & CONSTANTS
 // =====================================================================
-const DATA_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRMDQlR34QrdHDkaMZ3i0J5TTkg3xeWrUeYKQVOTA4bBY0fUQJrduttmJhhj-HyRg/pub?output=csv';
+const DATA_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRMDQlR34QrdHDkaMZ3i0J5TTkg3xeWrUeYKQVOTA4bBY0fUQJrduttmJhhj-HyRg/pub?gid=1286804077&single=true&output=csv';
 
 const PROXIES = [
   u => u,
@@ -646,7 +646,12 @@ async function loadData() {
     document.getElementById('content-gerencial').style.display = 'flex';
   } catch(e) {
     document.getElementById('loading-gerencial').innerHTML =
-      `<div class="error-box">❌ Error cargando datos: ${e.message}<br><small>Verifica que el Google Sheet sea público.</small></div>`;
+      `<div class="error-box" style="max-width:480px">
+        <b>❌ No se pudieron cargar los datos</b><br>
+        <small style="opacity:.8">${e.message}</small><br><br>
+        <small>Verifica que el Google Sheet esté publicado: Archivo → Compartir → Publicar en la web → Hoja específica → CSV.</small><br><br>
+        <button onclick="loadData()" style="margin-top:8px;padding:6px 14px;background:var(--yellow);color:#000;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:12px">↺ Reintentar</button>
+      </div>`;
   }
 }
 
